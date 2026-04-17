@@ -1,0 +1,32 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %} List of Books {% endblock title %}
+
+{% block stylesheets %}
+<style>
+    h1 { color: green; }
+    h2 { color: lightskyblue; }
+    p { font-family: verdana; font-size: 20px; }
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+    <h1>List of Books</h1>
+    
+    
+    <a href="{% url 'books.view_one_book' 123 %}"><h2>Harry Potter</h2></a>
+    
+    <a href="{% url 'books.view_one_book' 123 %}">
+        <img src="{% static 'images/book1.jpg' %}" alt="Book1 img desc" width="200" height="200">
+    </a>
+    <hr>
+    
+    <h2>2) DUNE</h2>
+    <img src="{% static 'images/book2.jpg' %}" alt="Book2 img desc" width="200" height="200">
+    <hr>
+    
+    <h2>3) Alice  in Wonderland</h2>
+    <img src="{% static 'images/book3.jpg' %}" alt="Book3 img desc" width="200" height="200">
+    <hr>
+{% endblock content %}
