@@ -1,0 +1,53 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %} Searching Page {% endblock title %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    .searchForm {
+        margin-top: 20px;
+    }
+    button {
+        color: #fff;
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+        border: none;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="searchForm">
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="keyword" placeholder="Search.." required>
+        <br><br>
+        <input type="checkbox" name="option1" value="title" checked> Search by Title
+        <input type="checkbox" name="option2" value="author"> Search by Author
+        <br><br>
+        <button type="submit"><i class="fa fa-search"></i> Search</button>
+    </form>
+</div>
+
+{% if books %}
+    <hr>
+    <h3>Search Results:</h3>
+    <ul>
+    {% for book in books %}
+        <li>{{ book.title }} by {{ book.author }}</li>
+    {% endfor %}
+    </ul>
+{% elif request.method == "POST" %}
+    <hr>
+    <p>No books found matching your criteria.</p>
+{% endif %}
+{% endblock content %}
