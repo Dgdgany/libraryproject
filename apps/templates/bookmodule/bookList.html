@@ -1,0 +1,16 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Simple Query Results {% endblock title %}
+
+{% block content %}
+    <h1>Books containing 'and' in the Title:</h1>
+    <hr>
+    {% for obj in books %}
+        <p><strong>ID:</strong> {{obj.id}}</p>
+        <p><strong>Title:</strong> {{obj.title}}</p>
+        <p><strong>Author:</strong> {{obj.author}}</p>
+        <hr>
+    {% empty %}
+        <p>No books found. Did you visit /lab7/add_books/ yet?</p>
+    {% endfor %}
+{% endblock content %}

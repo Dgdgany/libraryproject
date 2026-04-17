@@ -1,4 +1,21 @@
 from django.shortcuts import render
+from .models import Book
+from django.db.models import Q
+
+def add_test_books(request):
+    Book.objects.create(title='Harry Potter', author='J. K. Rowling', price=120.00, edition=3)
+    Book.objects.create(title='DUNE', author='Frank Herbert', price=97.00, edition=2)
+    Book.objects.create(title='Alice in Wonderland', author='Lewis Carroll', price=100.00, edition=4)
+    return render(request, 'bookmodule/index.html', {'msg': '3 Books added successfully to the database!'})
+
+def simple_query(request):
+    mybooks = Book.objects.filter(title__icontains='and')
+    return render(request, 'bookmodule/bookList.html', {'books': mybooks})
+   
+def lookup_query(request):
+    books = Book.objects.filter(author__isnull=False).filter(title__icontains='and').filter(edition__gte=2)
+
+    return render(request, 'bookmodule/bookList.html', {'books': books})
 
 def __getBooksList():
     book1 = {'id': 12344321, 'title': 'Harry Potter', 'author': 'J. K. Rowling'}
@@ -11,6 +28,8 @@ def search(request):
         string = request.POST.get('keyword').lower()
         isTitle = request.POST.get('option1')
         isAuthor = request.POST.get('option2')
+
+        
         
        
         books = __getBooksList()
